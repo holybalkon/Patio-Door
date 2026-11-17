@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Independent comparison site — crawling welcome.
+Sitemap: https://calgarypatiodoorexperts.ca/sitemap.xml

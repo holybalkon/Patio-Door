@@ -1,0 +1,58 @@
+# ===========================================================================
+# Independent Expert — Apache config
+# ===========================================================================
+
+# ---- Custom error page ----
+ErrorDocument 404 /404.html
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Canonical host: strip www -> non-www
+  RewriteCond %{HTTP_HOST} ^www\.calgarypatiodoorexperts\.ca$ [NC]
+  RewriteRule ^ https://calgarypatiodoorexperts.ca%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---- Gzip / Deflate compression ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/ld+json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+</IfModule>
+
+# ---- Cache headers ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                      "access plus 1 week"
+  ExpiresByType text/html             "access plus 1 day"
+  ExpiresByType text/css              "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/svg+xml         "access plus 1 month"
+  ExpiresByType image/png             "access plus 6 months"
+  ExpiresByType image/jpeg            "access plus 6 months"
+  ExpiresByType application/xml       "access plus 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|svg|png|jpg|jpeg|gif|woff2)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# ---- MIME types ----
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType application/ld+json .jsonld
+</IfModule>
