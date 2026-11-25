@@ -16,8 +16,8 @@ DirectoryIndex index.html
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # Canonical host: strip www -> non-www
-  RewriteCond %{HTTP_HOST} ^www\.calgarypatiodoorexperts\.ca$ [NC]
-  RewriteRule ^ https://calgarypatiodoorexperts.ca%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTP_HOST} ^www\.bestcalgarypatiodoors\.online$ [NC]
+  RewriteRule ^ https://bestcalgarypatiodoors.online%{REQUEST_URI} [L,R=301]
 </IfModule>
 
 # ---- Gzip / Deflate compression ----
