@@ -188,4 +188,15 @@
       track.scrollBy({ left: step(), behavior: "smooth" });
     });
   });
+  /* ---------- Open all links in a new tab ----------
+     In-page anchors (#section), mailto: and tel: keep default behaviour. */
+  var links = document.querySelectorAll("a[href]");
+  Array.prototype.forEach.call(links, function (a) {
+    var href = a.getAttribute("href");
+    if (!href || href.charAt(0) === "#" || /^(mailto|tel|javascript):/i.test(href)) return;
+    a.setAttribute("target", "_blank");
+    var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean);
+    if (rel.indexOf("noopener") === -1) rel.push("noopener");
+    a.setAttribute("rel", rel.join(" "));
+  });
 })();
